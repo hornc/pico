@@ -11,14 +11,14 @@ This repo consists of two transducer programs:
 
 Written in four different languages:
 
-* shell script pico2python.sh | bf2pico.sh *DONE!!* 
-* bf  pico2python.bf | bf2pico.bf *PENDING* 
-* pico pico2python.pico | bf2pico.pico *PENDING*
-* python pico2python.py | bf2pico.py *PENDING*
+* shell script: [pico2python.sh](pico2python.sh) | [bf2pico.sh](bf2pico.sh)
+* bf: pico2python.bf | bf2pico.bf *PENDING* 
+* pico: pico2python.pico | bf2pico.pico *PENDING*
+* python: pico2python.py | bf2pico.py *PENDING*
 
 It also includes:
 
-* pico.sh : A standalone bash shell pico interpreter which uses Python to execute the transduced pico code.
+* [pico.sh](pico.sh) : A standalone bash shell pico interpreter which uses Python to execute the transduced pico code.
 
 
 ### Examples
