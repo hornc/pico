@@ -1,6 +1,6 @@
 # Pico utils
 
-Pico is a two instruction bf minimisation with a somewhat complexi  semantics for each of its two symbols
+Pico is a two instruction bf minimisation with a somewhat complex semantics for each of its two symbols
 <code>[</code>, <code>]</code>
 The first symbol represents a call to a function that takes a variable number of copies of itself as arguments.
 
