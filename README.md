@@ -13,8 +13,8 @@ Written in four different languages:
 
 * shell script: [pico2python.sh](pico2python.sh) | [bf2pico.sh](bf2pico.sh)
 * bf: [pico2python.bf](pico2python.bf) | [bf2pico.bf] *PENDING* 
-* pico: [pico2python.pico] | [bf2pico.pico] *PENDING*
-* python: [pico2python.py] | [bf2pico.py] *PENDING*
+* pico: [pico2python.pico](pico2python.pico) | [bf2pico.pico] *PENDING*
+* python: [pico2python.py](pico2python.py) | [bf2pico.py] *PENDING*
 
 It also includes:
 
@@ -43,3 +43,13 @@ or
 or    
 
     ./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(echo -e ",[,.]\!It's a cat program" | fold -w1 )
+
+
+### Experimenting with transducing pico2python.pico into Python using itself as the transducer:
+
+    ./pico2python.py < <(echo -e "$(fold -w1 pico2python.pico)\n")
+
+    ./pico.sh pico2python.pico < <(echo -e "$(fold -w1 pico2python.pico)\n")
+
+
+**TODO:** Having the prompt `>` mixed in with the output is a problem. Find a neater solution for accepting input.
