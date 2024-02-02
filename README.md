@@ -12,7 +12,7 @@ This repo consists of two transducer programs:
 Written in four different languages:
 
 * shell script: [pico2python.sh](pico2python.sh) | [bf2pico.sh](bf2pico.sh)
-* bf: [pico2python.bf] | [bf2pico.bf] *PENDING* 
+* bf: [pico2python.bf](pico2python.bf) | [bf2pico.bf] *PENDING* 
 * pico: [pico2python.pico] | [bf2pico.pico] *PENDING*
 * python: [pico2python.py] | [bf2pico.py] *PENDING*
 
