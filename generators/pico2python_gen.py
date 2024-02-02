@@ -26,6 +26,13 @@ def pico(*a):
 PICO  = 'pico('
 CLOSE = '),'
 
+# Init cells:
+# 10, 32, 48, 78, 108
+INIT = """++++[>++++++++<-]
+++++++[>>++++++++>+++++++++++++>++++++++++++++++++<<<<-]
+++++++++++"""
+
+
 def p(current, target, d=0):
     """
     print:
@@ -46,7 +53,8 @@ def set_cell(current, target, d=0):
     """
     c = '+' if d > 0 else '-'
     s = '>' if current < target else '<'
-    print(s * abs(current - target) + c * abs(d), end='')
+    end = '' if d <= 12 else '\n'
+    print(s * abs(current - target) + c * abs(d), end=end)
     return target
 
 
@@ -58,78 +66,72 @@ def reset_points(pos, points):
     return pos, points
 
 
-# set up some ASCII points...
+def main():
+    # set up some ASCII points...
+    print(INIT)
+    points = [48, 78, 108]
 
-points = [48, 78, 108]
+    # start on 10
+    pos = 0
 
-# 10, 32, 48, 78, 108
-CODE = """++++[>++++++++<-]
-++++++[>>++++++++>+++++++++++++>++++++++++++++++++<<<<-]
-++++++++++"""
+    for c in PRE:
+        n = ord(c)
+        if n == 32:
+            pos = p(pos, 1)
+        elif n == 10:
+            pos = p(pos, 0)
+        elif n == 9:
+            pos = p(pos, 0, -1)
+        else:
+            offs = (n - 32) // 32
+            pos = p(pos, offs + 2, n - points[offs])
+            points[offs] = n
 
-# start on 10 
+    # reset points to a known point  [48, 78, 108]
+    pos, points = reset_points(pos, points)
 
-pos = 0
+    # do the pico transducing:
 
-print(CODE)
+    # set up [] flags at pos 6
+    pos = p(pos, 6)
 
-for c in PRE:
-    n = ord(c)
-    if n == 32:
-        pos = p(pos, 1)
-    elif n == 10:
-        pos = p(pos, 0)
-    elif n == 9:
-        pos = p(pos, 0, -1)
-    else:
+    print('>+<')
+
+    # read input loop
+    print(',[<')
+
+    # 91 = [
+    # 93 = ]
+
+    print('+++++++[>-------------<-]>') # subtract 91 (for ord('['))
+    print('[>->+<<--[>>-<<[-]]]')
+
+    # output pico( if we need to
+    print('>[')
+    pos = 7
+
+    for c in PICO:
+        n = ord(c)
         offs = (n - 32) // 32
         pos = p(pos, offs + 2, n - points[offs])
         points[offs] = n
 
+    pos, points = reset_points(pos, points)
+    pos = set_cell(pos, 7)
+    print('[-]]>[')
+    pos = 8
 
-# reset points to a known point  [48, 78, 108]
-pos, points = reset_points(pos, points)
+    # output ), if we need to
+    for c in CLOSE:
+        n = ord(c)
+        offs = (n - 32) // 32
+        pos = p(pos, offs + 2, n - points[offs])
+        points[offs] = n
+    pos, points = reset_points(pos, points)
+    pos = set_cell(pos, 8)
 
-# do the pico transducing:
+    # set up first flag and get new input before repeating main transducer loop
+    print('[-]]<+<,]')
 
-# set up [] flags at pos 6
-pos = p(pos, 6) 
-
-print('>+<')
-
-# read input loop
-print(',[<')
-
-# 91 = [
-# 93 = ]
-
-print('+++++++[>-------------<-]>') # subtract 91 (for ord('['))
-print('[>->+<<--[>>-<<[-]]]')
-
-# output pico( if we need to
-print('>[')
-pos = 7
-
-for c in PICO:
-    n = ord(c)
-    offs = (n - 32) // 32
-    pos = p(pos, offs + 2, n - points[offs])
-    points[offs] = n
-
-pos, points = reset_points(pos, points)
-pos = set_cell(pos, 7)
-print('[-]]>[')
-pos = 8
-
-# output ), if we need to
-for c in CLOSE:
-    n = ord(c)
-    offs = (n - 32) // 32
-    pos = p(pos, offs + 2, n - points[offs])
-    points[offs] = n
-pos, points = reset_points(pos, points)
-pos = set_cell(pos, 8)
-
-# set up first flag and get new input before repeating main transducer loop
-print('[-]]<+<,]')
-
+if __name__ == '__main__':
+    main()
