@@ -15,7 +15,7 @@ def pico(*a):
         lambda a,v: (v, P - 1),
         lambda a,v: (v, P + 1),
         lambda a,v: (v, print([bool, int, chr][a[1] - 1](v), end='') or P),
-        lambda a,v: ([bool, int, lambda s: s and ord(s[0]) or 0][a[1] - 1](input('>')), P)
+        lambda a,v: ([bool, int, lambda s: s and ord(s[0]) or 0][a[1] - 1](input()), P)
     ][((len(a) < 2) or (max(1, 0 - a[0]))) - 1](a, T.get(P, 0))))
     if r != 0: return r
     while (bool(T.get(P, 0)) == a[1][r] - 1 and ([pico(-c, a) for c,a in a[1][2:]] or 1)): r = 1
