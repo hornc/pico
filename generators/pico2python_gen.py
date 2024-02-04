@@ -40,12 +40,12 @@ def p(current, target, d=0):
     change the cell value by d
     and output the cell as ASCII.
     """
-    set_cell(current, target, d)
+    g(current, target, d)
     print('.', end='')
     return target
 
 
-def set_cell(current, target, d=0):
+def g(current, target, d=0):
     """
     go:
     Go from current to target,
@@ -59,11 +59,33 @@ def set_cell(current, target, d=0):
 
 
 def reset_points(pos, points):
-    pos = set_cell(pos, 2,  48 - points[0])
-    pos = set_cell(pos, 3,  78 - points[1])
-    pos = set_cell(pos, 4, 108 - points[2])
+    pos = g(pos, 2,  48 - points[0])
+    pos = g(pos, 3,  78 - points[1])
+    pos = g(pos, 4, 108 - points[2])
     points = [48, 78, 108]
     return pos, points
+
+
+def output_str(s, pos, points):
+    """
+    Generate bf code to output string s
+    give points and a current pos.
+    """
+    for c in s:
+        n = ord(c)
+        if n == 32:
+            pos = p(pos, 1)
+        elif n == 10:
+            pos = p(pos, 0, 0)
+        elif n == 9:
+            pos = p(pos, 0, -1)
+            print('+')
+        else:
+            offs = (n - 32) // 32
+            pos = p(pos, offs + 2, n - points[offs])
+            points[offs] = n
+    # reset points to a known point [48, 78, 108]
+    return reset_points(pos, points)
 
 
 def main():
@@ -74,26 +96,12 @@ def main():
     # start on 10
     pos = 0
 
-    for c in PRE:
-        n = ord(c)
-        if n == 32:
-            pos = p(pos, 1)
-        elif n == 10:
-            pos = p(pos, 0)
-        elif n == 9:
-            pos = p(pos, 0, -1)
-        else:
-            offs = (n - 32) // 32
-            pos = p(pos, offs + 2, n - points[offs])
-            points[offs] = n
+    # Unconditionally output the Pico primer:
+    pos, points = output_str(PRE, pos, points)
 
-    # reset points to a known point  [48, 78, 108]
-    pos, points = reset_points(pos, points)
-
-    # do the pico transducing:
-
+    # Do the pico transducing:
     # set up [] flags at pos 6
-    pos = p(pos, 6)
+    pos = g(pos, 6)
 
     print('>+<')
 
@@ -103,32 +111,21 @@ def main():
     # 91 = [
     # 93 = ]
 
-    print('+++++++[>-------------<-]>') # subtract 91 (for ord('['))
+    print('+++++++[>-------------<-]>')  # subtract 91 (for ord('['))
     print('[>->+<<--[>>-<<[-]]]')
 
     # output pico( if we need to
     print('>[')
     pos = 7
 
-    for c in PICO:
-        n = ord(c)
-        offs = (n - 32) // 32
-        pos = p(pos, offs + 2, n - points[offs])
-        points[offs] = n
-
-    pos, points = reset_points(pos, points)
-    pos = set_cell(pos, 7)
+    pos, points = output_str(PICO, pos, points)
+    pos = g(pos, 7)
     print('[-]]>[')
     pos = 8
 
     # output ), if we need to
-    for c in CLOSE:
-        n = ord(c)
-        offs = (n - 32) // 32
-        pos = p(pos, offs + 2, n - points[offs])
-        points[offs] = n
-    pos, points = reset_points(pos, points)
-    pos = set_cell(pos, 8)
+    pos, points = output_str(CLOSE, pos, points)
+    pos = g(pos, 8)
 
     # set up first flag and get new input before repeating main transducer loop
     print('[-]]<+<,]')
