@@ -5,51 +5,56 @@ Pico is a two instruction bf minimisation with somewhat complex semantics for ea
 The first symbol represents a call to a function that takes a variable number of copies of itself as arguments.
 
 This repo consists of two transducer programs:
-
 * pico2python
 * bf2pico
 
-Written in four different languages:
+Implemented in four languages:
 
-* shell script: [pico2python.sh](pico2python.sh) | [bf2pico.sh](bf2pico.sh)
-* bf: [pico2python.bf](pico2python.bf) | [bf2pico.bf] *PENDING* 
-* pico: [pico2python.pico](pico2python.pico) | [bf2pico.pico] *PENDING*
-* python: [pico2python.py](pico2python.py) | [bf2pico.py] *PENDING*
+| Lang.      | `pico2python`                          | `bf2pico` |
+| :--------- | :------------------------------------- | :-------- |
+| **Bash**   | [`pico2python.sh`](pico2python.sh)     | [`bf2pico.sh`](bf2pico.sh) |
+| **bf**     | [`pico2python.bf`](pico2python.bf)     | *PENDING* |
+| **Pico**   | [`pico2python.pico`](pico2python.pico) | *PENDING* |
+| **Python** | [`pico2python.py`](pico2python.py)     | *PENDING* |
 
 It also includes:
+* [pico.sh](pico.sh) : A self-contained shell script to transduce Pico code into Python using `sed` and execute it directly.
 
-* [pico.sh](pico.sh) : A standalone bash shell pico interpreter which uses Python to execute the transduced pico code.
+## Transducer Architecture
 
+### bf to Pico (`bf2pico`)
+![bf to Pico Transducer](./img/BfToPicoFST.svg)
 
-### Examples
-
-Transduce and run a bf program:
-
-    ./bf2pico.sh examples/hw.bf | ./pico.sh
-
-
-Transduce and run a bf self interpreter (dbfi.b), with input hw.bf:
-
-    python <(./bf2pico.sh examples/dbfi.b | ./pico2python.sh ) < <(echo -e "$(sed 's/\(.\)/\1\n/g' examples/hw.bf)\n!")
-
-or
-
-    echo -e "$(sed 's/\(.\)/\1\n/g' examples/hw.bf)\n!" |  ./pico.sh <(./bf2pico.sh examples/dbfi.b)
-
-or
-
-    ./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(echo -e "$(fold -w1 examples/hw.bf)\n!" )
-    
-or    
-
-    ./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(echo -e ",[,.]\!It's a cat program" | fold -w1 )
+### Pico to Python (`pico2python`)
+![Pico to Python Transducer](./img/PicoToPythonFST.svg)
 
 
-### Experimenting with transducing pico2python.pico into Python using itself as the transducer:
+## Usage examples
 
-    ./pico2python.py < <(echo -e "$(fold -w1 pico2python.pico)\n")
+### 1. Transduce and run a [bf program](examples/hw.bf) using `pico.sh`
+```bash
+./bf2pico.sh examples/hw.bf | ./pico.sh
+```
+**Output:**
+```
+Hello World!
+```
 
-    ./pico.sh pico2python.pico < <(echo -e "$(fold -w1 pico2python.pico)\n")
+### 2. Transduce and run Daniel B. Cristofani's bf self-interpreter [dbfi.b](https://www.hevanet.com/cristofd/dbfi.b) (included in `examples/`) as pico, with input `hw.bf` (Hello World):
+```bash
+./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(fold -w1 examples/hw.bf; echo '!')
+```
+**Output:**
+```
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Hello World!
+```
 
+### 3. Transduce pico2python.pico into Python using itself as the transducer
+**TODO:** Having the prompt `>` mixed in with this output is currently a problem.
+```bash
+./pico2python.py < <(fold -w1 pico2python.pico ; echo)
+```
 
-**TODO:** Having the prompt `>` mixed in with the output is a problem. Find a neater solution for accepting input.
+```bash
+./pico.sh pico2python.pico < <(fold -w1 pico2python.pico ; echo)
+```

@@ -1,0 +1,40 @@
+digraph PicoToPythonFST {
+    rankdir=LR;
+    labelloc="t";
+    label="Pico to Python Transducer (pico2python)";
+
+    node [fontname="Helvetica,Arial,sans-serif"];
+    edge [fontname="Courier"];
+
+    node [shape = circle]; 0 1;
+
+    start [shape = point, style = filled];
+    start -> 0;
+
+    // Transition 0 -> 1: init, preamble
+    0 -> 1 [label = <
+        <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#F8F9FA">
+            <TR><TD ALIGN="LEFT" BGCOLOR="#EAECF0"><B>Input:</B> &#949;</TD></TR>
+            <TR><TD ALIGN="LEFT"><FONT FACE="monospace">
+T, P, C = {}, 0, 0<BR ALIGN="LEFT"/>
+<BR ALIGN="LEFT"/>
+def pico(*a):<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;global T, P, C<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;r, T[P], P, C = (lambda x: (*x, x[0] != 0) if len(x) &gt; 2 else (None, *(max(0, v) for v in x), 0))(([<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: ((2 * C - 1) * (not len(a)) or (len(a) &lt; 2 and a[0] + a[0]//abs(a[0])) or (a, 0)[a[0] &lt; 0], v, P),<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: (1 - v if a[1] == 1 else v + 2 * a[1] - 5, P),<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: (v, P - 1),<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: (v, P + 1),<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: (v, print([bool, int, chr][a[1] - 1](v), end='') or P),<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: ([bool, int, lambda s: s and ord(s[0]) or 0][a[1] - 1](input('&gt;')), P)<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;][((len(a) &lt; 2) or (max(1, 0 - a[0]))) - 1](a, T.get(P, 0))))<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;if r != 0: return r<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;while (bool(T.get(P, 0)) == a[1][r] - 1 and ([pico(-c, a) for c,a in a[1][2:]] or 1)): r = 1<BR ALIGN="LEFT"/>
+            </FONT></TD></TR>
+        </TABLE>
+    >];
+
+    // State 1 self-transitions
+    1 -> 1 [label = "] : ),"];
+    1 -> 1 [label = "[ : pico("];
+}
