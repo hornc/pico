@@ -42,7 +42,7 @@
 <text text-anchor="start" x="101.6" y="-132.5" font-family="monospace" font-size="14.00">​        lambda a,v: (v, P &#45; 1),</text>
 <text text-anchor="start" x="101.6" y="-117.5" font-family="monospace" font-size="14.00">​        lambda a,v: (v, P + 1),</text>
 <text text-anchor="start" x="101.6" y="-102.5" font-family="monospace" font-size="14.00">​        lambda a,v: (v, print([bool, int, chr][a[1] &#45; 1](v), end=&#39;&#39;) or P),</text>
-<text text-anchor="start" x="101.6" y="-87.5" font-family="monospace" font-size="14.00">​        lambda a,v: ([bool, int, lambda s: s and ord(s[0]) or 0][a[1] &#45; 1](input(&#39;&gt;&#39;)), P)</text>
+<text text-anchor="start" x="101.6" y="-87.5" font-family="monospace" font-size="14.00">​        lambda a,v: ([bool, int, lambda s: s and ord(s[0]) or 0][a[1] &#45; 1](input()), P)</text>
 <text text-anchor="start" x="101.6" y="-72.5" font-family="monospace" font-size="14.00">​    ][((len(a) &lt; 2) or (max(1, 0 &#45; a[0]))) &#45; 1](a, T.get(P, 0))))</text>
 <text text-anchor="start" x="101.6" y="-57.5" font-family="monospace" font-size="14.00">​    if r != 0: return r</text>
 <text text-anchor="start" x="101.6" y="-42.5" font-family="monospace" font-size="14.00">​    while (bool(T.get(P, 0)) == a[1][r] &#45; 1 and ([pico(&#45;c, a) for c,a in a[1][2:]] or 1)): r = 1</text>
