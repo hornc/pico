@@ -26,7 +26,7 @@ def pico(*a):<BR ALIGN="LEFT"/>
 &#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: (v, P - 1),<BR ALIGN="LEFT"/>
 &#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: (v, P + 1),<BR ALIGN="LEFT"/>
 &#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: (v, print([bool, int, chr][a[1] - 1](v), end='') or P),<BR ALIGN="LEFT"/>
-&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: ([bool, int, lambda s: s and ord(s[0]) or 0][a[1] - 1](input('&gt;')), P)<BR ALIGN="LEFT"/>
+&#8203;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lambda a,v: ([bool, int, lambda s: s and ord(s[0]) or 0][a[1] - 1](input()), P)<BR ALIGN="LEFT"/>
 &#8203;&nbsp;&nbsp;&nbsp;&nbsp;][((len(a) &lt; 2) or (max(1, 0 - a[0]))) - 1](a, T.get(P, 0))))<BR ALIGN="LEFT"/>
 &#8203;&nbsp;&nbsp;&nbsp;&nbsp;if r != 0: return r<BR ALIGN="LEFT"/>
 &#8203;&nbsp;&nbsp;&nbsp;&nbsp;while (bool(T.get(P, 0)) == a[1][r] - 1 and ([pico(-c, a) for c,a in a[1][2:]] or 1)): r = 1<BR ALIGN="LEFT"/>

@@ -46,11 +46,10 @@ Hello World!
 ```
 **Output:**
 ```
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Hello World!
+Hello World!
 ```
 
 ### 3. Transduce pico2python.pico into Python using itself as the transducer
-**TODO:** Having the prompt `>` mixed in with this output is currently a problem.
 ```bash
 ./pico2python.py < <(fold -w1 pico2python.pico ; echo)
 ```
