@@ -20,14 +20,23 @@ Implemented in four languages:
 It also includes:
 * [pico.sh](pico.sh) : A self-contained shell script to transduce Pico code into Python using `sed` and execute it directly.
 
-### Usage examples
+## Transducer Architecture
 
-#### Transduce and run a bf program using `pico.sh`
+### bf to Pico (`bf2pico`)
+![bf to Pico Transducer](./img/BfToPicoFST.svg)
+
+### Pico to Python (`pico2python`)
+![Pico to Python Transducer](./img/PicoToPythonFST.svg)
+
+
+## Usage examples
+
+### 1. Transduce and run a bf program using `pico.sh`
 ```bash
 ./bf2pico.sh examples/hw.bf | ./pico.sh
 ```
 
-#### Transduce and run a bf self interpreter (Daniel B. Cristofani's [dbfi.b](https://www.hevanet.com/cristofd/dbfi.b)), with input hw.bf (Hello World) as pico:
+### 2. Transduce and run a bf self interpreter (Daniel B. Cristofani's [dbfi.b](https://www.hevanet.com/cristofd/dbfi.b)), with input hw.bf (Hello World) as pico:
 ```bash
 python <(./bf2pico.sh examples/dbfi.b | ./pico2python.sh ) < <(echo -e "$(sed 's/\(.\)/\1\n/g' examples/hw.bf)\n!")
 ```
@@ -44,7 +53,7 @@ or
 ./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(echo -e ",[,.]\!It's a cat program" | fold -w1)
 ```
 
-#### Transduce pico2python.pico into Python using itself as the transducer
+### 3. Transduce pico2python.pico into Python using itself as the transducer
 ```bash
 ./pico2python.py < <(echo -e "$(fold -w1 pico2python.pico)\n")
 ./pico.sh pico2python.pico < <(echo -e "$(fold -w1 pico2python.pico)\n")
