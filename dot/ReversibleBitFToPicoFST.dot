@@ -1,0 +1,22 @@
+digraph ReversibleBitFToPicoFST {
+    rankdir=LR;
+    nodesep=0.5;
+    pad=0.2;
+    labelloc="t";
+    label="Reversible Bitfuck to Pico Transducer";
+
+    node [fontname="Helvetica,Arial,sans-serif"];
+    edge [fontname="Courier"];
+
+    node [shape = doublecircle]; 0;
+    edge [color="#888888"];
+
+    start [shape = point, style = filled];
+    start -> 0;
+
+    0 -> 0 [label = "( : ]]"];
+    0 -> 0 [label = ") : [[][[[]][]"];
+    0 -> 0 [label = "< : [[[[]]][]]"];
+    0 -> 0 [label = "> : [[[[[]]]][]]"];
+    0 -> 0 [label = "* : [[[]][]]"];
+}
