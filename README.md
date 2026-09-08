@@ -35,22 +35,18 @@ It also includes:
 ```bash
 ./bf2pico.sh examples/hw.bf | ./pico.sh
 ```
+**Output:**
+```
+Hello World!
+```
 
-### 2. Transduce and run a bf self interpreter (Daniel B. Cristofani's [dbfi.b](https://www.hevanet.com/cristofd/dbfi.b)), with input hw.bf (Hello World) as pico:
+### 2. Transduce and run Daniel B. Cristofani's bf self-interpreter [dbfi.b](https://www.hevanet.com/cristofd/dbfi.b) (included in `examples/`) as pico, with input `hw.bf` (Hello World):
 ```bash
-python <(./bf2pico.sh examples/dbfi.b | ./pico2python.sh ) < <(echo -e "$(sed 's/\(.\)/\1\n/g' examples/hw.bf)\n!")
+./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(fold -w1 examples/hw.bf; echo '!')
 ```
-or
-```bash
-echo -e "$(sed 's/\(.\)/\1\n/g' examples/hw.bf)\n!" | ./pico.sh <(./bf2pico.sh examples/dbfi.b)
+**Output:**
 ```
-or
-```bash
-./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(echo -e "$(fold -w1 examples/hw.bf)\n!")
-```
-or    
-```bash
-./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(echo -e ",[,.]\!It's a cat program" | fold -w1)
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Hello World!
 ```
 
 ### 3. Transduce pico2python.pico into Python using itself as the transducer
