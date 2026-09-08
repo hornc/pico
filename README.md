@@ -8,19 +8,21 @@ This repo consists of two transducer programs:
 * pico2python
 * bf2pico
 
-Written in four different languages:
-* shell script: [pico2python.sh](pico2python.sh) | [bf2pico.sh](bf2pico.sh)
-* bf: [pico2python.bf](pico2python.bf) | [bf2pico.bf] *PENDING* 
-* pico: [pico2python.pico](pico2python.pico) | [bf2pico.pico] *PENDING*
-* python: [pico2python.py](pico2python.py) | [bf2pico.py] *PENDING*
+Implemented in four languages:
+
+| Lang.      | `pico2python`                          | `bf2pico` |
+| :--------- | :------------------------------------- | :-------- |
+| **Bash**   | [`pico2python.sh`](pico2python.sh)     | [`bf2pico.sh`](bf2pico.sh) |
+| **bf**     | [`pico2python.bf`](pico2python.bf)     | *PENDING* |
+| **Pico**   | [`pico2python.pico`](pico2python.pico) | *PENDING* |
+| **Python** | [`pico2python.py`](pico2python.py)     | *PENDING* |
 
 It also includes:
-* [pico.sh](pico.sh) : A standalone bash shell pico interpreter which uses Python to execute the transduced pico code.
-
+* [pico.sh](pico.sh) : A self-contained shell script to transduce Pico code into Python using `sed` and execute it directly.
 
 ### Usage examples
 
-#### Transduce and run a bf program using `pico.sh`:
+#### Transduce and run a bf program using `pico.sh`
 ```bash
 ./bf2pico.sh examples/hw.bf | ./pico.sh
 ```
@@ -42,7 +44,7 @@ or
 ./pico.sh <(./bf2pico.sh examples/dbfi.b) < <(echo -e ",[,.]\!It's a cat program" | fold -w1)
 ```
 
-#### Transduce pico2python.pico into Python using itself as the transducer:
+#### Transduce pico2python.pico into Python using itself as the transducer
 ```bash
 ./pico2python.py < <(echo -e "$(fold -w1 pico2python.pico)\n")
 ./pico.sh pico2python.pico < <(echo -e "$(fold -w1 pico2python.pico)\n")
