@@ -14,8 +14,8 @@ digraph ReversibleBitFToPicoFST {
     start [shape = point, style = filled];
     start -> 0;
 
-    0 -> 0 [label = "( : ]]"];
-    0 -> 0 [label = ") : [[][[[]][]"];
+    0 -> 0 [label = ") : ]]"];
+    0 -> 0 [label = "( : [[][[[]][]"];
     0 -> 0 [label = "< : [[[[]]][]]"];
     0 -> 0 [label = "> : [[[[[]]]][]]"];
     0 -> 0 [label = "* : [[[]][]]"];
