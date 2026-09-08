@@ -31,7 +31,7 @@ It also includes:
 
 ## Usage examples
 
-### 1. Transduce and run a bf program using `pico.sh`
+### 1. Transduce and run a [bf program](examples/hw.bf) using `pico.sh`
 ```bash
 ./bf2pico.sh examples/hw.bf | ./pico.sh
 ```
@@ -50,7 +50,11 @@ Hello World!
 ```
 
 ### 3. Transduce pico2python.pico into Python using itself as the transducer
+**TODO:** Having the prompt `>` mixed in with this output is currently a problem.
 ```bash
-./pico2python.py < <(echo -e "$(fold -w1 pico2python.pico)\n")
-./pico.sh pico2python.pico < <(echo -e "$(fold -w1 pico2python.pico)\n")
+./pico2python.py < <(fold -w1 pico2python.pico ; echo)
+```
+
+```bash
+./pico.sh pico2python.pico < <(fold -w1 pico2python.pico ; echo)
 ```
